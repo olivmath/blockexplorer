@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+
+.block-component,
+.transaction-component,
+.wallet-component {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.block-component h2,
+.transaction-component h2,
+.wallet-component h2 {
+  font-size: 1.5em;
+}
+
+/* Adicione estilos adicionais conforme necessário */
