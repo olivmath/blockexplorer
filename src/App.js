@@ -50,20 +50,21 @@ function App() {
       console.error(error);
     }
   };
-  
+
   const handleSearch = () => {
+    let type = 'unknown';
     if (input.startsWith('0x')) {
       if (input.length === 42) {
-        setData({ data: input, type: "address" });
+        type = "address";
       } else if (input.length === 66) {
-        setData({ data: input, type: "tx" });
+        type = "tx";
       }
-    } else if (Number.isInteger(data)) {
-      setData({ data: parseInt(data, 10), type: "block" });
+    } else if (!isNaN(input) && input.trim() !== '') {
+      type = "block";
     }
-    setSearched(true)
-    console.log(data)
-    console.log(searched)
+
+    setData({ data: input, type });
+    setSearched(true);
   };
 
   return (
@@ -97,9 +98,9 @@ function App() {
         </div>
       </div>
 
-      {searched && input.type === 'tx' && <TransactionCard alchemy={alchemy} hash={input.data} />}
-      {searched && input.type === 'address' && <WalletCard alchemy={alchemy} address={input.data} />}
-      {searched && input.type === 'block' && <BlockCard alchemy={alchemy} number={input.data} />}
+      {searched && data.type === 'address' && <WalletCard alchemy={alchemy} address={data.data} />}
+      {searched && data.type === 'tx' && <TransactionCard alchemy={alchemy} hash={data.data} />}
+      {searched && data.type === 'block' && <BlockCard alchemy={alchemy} number={data.data} />}
     </div>
   );
 }
