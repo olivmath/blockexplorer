@@ -1,8 +1,7 @@
-// WalletComponent.jsx
 import React, { useState, useEffect } from 'react';
 import { ethers } from "ethers";
 
-function WalletComponent({ alchemy, address }) {
+function WalletCard({ alchemy, address }) {
     const [walletData, setWalletData] = useState({});
 
     useEffect(() => {
@@ -25,11 +24,11 @@ function WalletComponent({ alchemy, address }) {
     }, [alchemy, address]);
 
     return (
-        <div className="wallet-component">
+        <div className="wallet-card">
             <h2>Wallet Address: {walletData.address}</h2>
             <p>Balance: {walletData.balance} ETH</p>
         </div>
     );
 }
 
-export default WalletComponent;
+export default WalletCard;

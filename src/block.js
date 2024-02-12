@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-function BlockComponent({ alchemy, number }) {
+function BlockCard({ alchemy, number }) {
     const [blockData, setBlockData] = useState({});
 
     useEffect(() => {
@@ -27,7 +27,7 @@ function BlockComponent({ alchemy, number }) {
       }, [alchemy]);
     
     return (
-        <div className="block-component">
+        <div className="block-card">
         <h2>Block Number: {blockData.number}</h2>
             <p>Hash Block: {blockData.hash}</p>
             <p>Difficulty: {blockData.difficulty}</p>
@@ -37,4 +37,4 @@ function BlockComponent({ alchemy, number }) {
     );
 }
 
-export default BlockComponent;
+export default BlockCard;

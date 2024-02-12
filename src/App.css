@@ -38,9 +38,9 @@
 }
 
 
-.block-component,
-.transaction-component,
-.wallet-component {
+.block-card,
+.transaction-card,
+.wallet-card {
   background-color: #333;
   color: white;
   padding: 20px;
@@ -48,9 +48,9 @@
   margin: 10px;
 }
 
-.block-component h2,
-.transaction-component h2,
-.wallet-component h2 {
+.block-card h2,
+.transaction-card h2,
+.wallet-card h2 {
   font-size: 1.5em;
 }
 

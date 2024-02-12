@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import React, { useState, useEffect } from 'react';
 
-function TransactionComponent({ alchemy, hash }) {
+function TransactionCard({ alchemy, hash }) {
   const [txData, setTxData] = useState({});
 
     useEffect(() => {
@@ -30,7 +30,7 @@ function TransactionComponent({ alchemy, hash }) {
     
 
   return (
-    <div className="transaction-component">
+    <div className="transaction-card">
       <h2>Tx Hash: {txData.hash}</h2>
       <p>Block Hash: {txData.blockHash}</p>
       <p>From: {txData.from}</p>
@@ -41,4 +41,4 @@ function TransactionComponent({ alchemy, hash }) {
   );
 }
 
-export default TransactionComponent;
+export default TransactionCard;

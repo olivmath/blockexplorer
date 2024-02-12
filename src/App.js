@@ -1,9 +1,9 @@
 import { Alchemy, Network } from 'alchemy-sdk';
 import { useEffect, useState } from 'react';
 import './App.css';
-import WalletComponent from './wallet';
-import TransactionComponent from './transaction';
-import BlockComponent from './block';
+import WalletCard from './wallet';
+import TransactionCard from './transaction';
+import BlockCard from './block';
 
 // Refer to the README doc for more information about using API
 // keys in client-side code. You should never do this in production
@@ -23,7 +23,9 @@ const alchemy = new Alchemy(settings);
 
 function App() {
   const [blockNumber, setBlockNumber] = useState('');
-  const [input, setInput] = useState({ data: 0, type: 'unknow' });
+  const [searched, setSearched] = useState(false);
+  const [input, setInput] = useState('');
+  const [data, setData] = useState({});
 
   useEffect(() => {
     async function getBlockNumber() {
@@ -42,7 +44,7 @@ function App() {
   const handlePaste = async () => {
     try {
       const text = await navigator.clipboard.readText();
-      validateInput(text);
+      setInput(text)
     } catch (error) {
       alert('Falha ao colar da área de transferência, detalhes no console');
       console.error(error);
@@ -50,25 +52,18 @@ function App() {
   };
   
   const handleSearch = () => {
-    console.log(input)
-  };
-
-  const validateInput = (data) => {
-    if (data.startsWith('0x')) {
-      if (data.length === 42) {
-        setInput({ data, type: "address" });
-      } else if (data.length === 66) {
-        setInput({ data, type: "tx" });
-      } else {
-        setInput({ ...input, data });
+    if (input.startsWith('0x')) {
+      if (input.length === 42) {
+        setData({ data: input, type: "address" });
+      } else if (input.length === 66) {
+        setData({ data: input, type: "tx" });
       }
     } else if (Number.isInteger(data)) {
-      setInput({ data: parseInt(data, 10), type: "block" });
-    } else if (data === '') {
-      setInput({ data: '', type: 'unknown' });
-    } else {
-      setInput({ ...input, data });
+      setData({ data: parseInt(data, 10), type: "block" });
     }
+    setSearched(true)
+    console.log(data)
+    console.log(searched)
   };
 
   return (
@@ -90,8 +85,8 @@ function App() {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <input
             type="text"
-            value={input.data || ''}
-            onChange={(e) => validateInput(e.target.value)}
+            value={input || ''}
+            onChange={(e) => setInput(e.target.value)}
             placeholder="Put: tx hash, block number or wallet address"
             style={{ flexGrow: 1, marginRight: '10px', padding: '10px' }}
           />
@@ -102,9 +97,9 @@ function App() {
         </div>
       </div>
 
-      {/* {input.type === 'tx' && <TransactionComponent alchemy={alchemy} hash={input.data} />} */}
-      {/* {input.type === 'address' && <WalletComponent alchemy={alchemy} address={input.data} />} */}
-      {/* {input.type === 'block' && <BlockComponent alchemy={alchemy} number={input.data} />} */}
+      {searched && input.type === 'tx' && <TransactionCard alchemy={alchemy} hash={input.data} />}
+      {searched && input.type === 'address' && <WalletCard alchemy={alchemy} address={input.data} />}
+      {searched && input.type === 'block' && <BlockCard alchemy={alchemy} number={input.data} />}
     </div>
   );
 }
