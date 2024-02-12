@@ -10,7 +10,8 @@ function BlockComponent({ alchemy, number }) {
           try {
             block = await alchemy.core.getBlock(number);
           } catch (error) {
-            alert('Erro ao buscar o número do bloco:', error);
+            alert('Erro ao buscar o número do bloco, detalhes no console')
+            console.error(error);
           }
 
         setBlockData({

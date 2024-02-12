@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import React, { useState, useEffect } from 'react';
 
 function TransactionComponent({ alchemy, hash }) {
-    const [txData, setTxData] = useState({});
+  const [txData, setTxData] = useState({});
 
     useEffect(() => {
         async function getTxData(hash) {
@@ -10,7 +10,8 @@ function TransactionComponent({ alchemy, hash }) {
           try {
             txData = await alchemy.core.getTransaction(hash);
           } catch (error) {
-            alert('Erro ao buscar o hash da transação:', error);
+            alert('Erro ao buscar o hash da transação, detalhes no console')
+            console.error(error);
           }
 
 

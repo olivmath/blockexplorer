@@ -7,21 +7,21 @@ function WalletComponent({ alchemy, address }) {
 
     useEffect(() => {
         async function getWalletBalance(address) {
+            let balance
             try {
-                // O método getBalance retorna um BigNumber para a quantidade de wei em uma determinada carteira.
-                const balance = await alchemy.core.getBalance(address);
-                // Conversão de wei para ether e formatação para string.
-                const formattedBalance = ethers.utils.formatEther(balance);
-                setWalletData({
-                    address: `${address.substring(0, 6)}...${address.substring(address.length - 4)}`,
-                    balance: formattedBalance
-                });
+                balance = await alchemy.core.getBalance(address, "latest");
             } catch (error) {
-                alert('Erro ao buscar o saldo da carteira:', error);
+                alert('Erro ao buscar o saldo da carteira, detalhes no console')
+                console.error(error);
             }
+            const formattedBalance = ethers.getBigInt(balance.value._hex);
+            setWalletData({
+                address: `${address.substring(0, 6)}...${address.substring(address.length - 4)}`,
+                balance: formattedBalance
+            });
         }
 
-        getWalletBalance("0x123abc...def456") // substitua pelo endereço correto
+        getWalletBalance(address)
     }, [alchemy, address]);
 
     return (

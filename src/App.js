@@ -1,6 +1,9 @@
 import { Alchemy, Network } from 'alchemy-sdk';
 import { useEffect, useState } from 'react';
 import './App.css';
+import WalletComponent from './wallet';
+import TransactionComponent from './transaction';
+import BlockComponent from './block';
 
 // Refer to the README doc for more information about using API
 // keys in client-side code. You should never do this in production
@@ -71,12 +74,12 @@ function App() {
         borderRadius: '5px',
         marginTop: '50px'
       }}>
-        {/* <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-          <div>Block Number</div>
+        <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+          <div>Current Ethreum mainnet block number:</div>
           <div style={{ fontWeight: 'bold', fontSize: '24px' }}>
             {blockNumber || 'Loading...'}
           </div>
-        </div> */}
+        </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <input
             type="text"
@@ -92,9 +95,7 @@ function App() {
         </div>
       </div>
 
-      <TransactionComponent alchemy={alchemy} hash="0x..." />
-      <BlockComponent alchemy={alchemy} number={123456} />
-      <WalletComponent alchemy={alchemy} address="0x..." />
+      <WalletComponent/>
     </div>
   );
 }
