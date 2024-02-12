@@ -2,43 +2,52 @@ import { ethers } from "ethers";
 import React, { useState, useEffect } from 'react';
 
 function TransactionCard({ alchemy, hash }) {
-  const [txData, setTxData] = useState({});
+  const [tx, setTx] = useState(null);
 
-    useEffect(() => {
-        async function getTxData(hash) {
-          let txData
-          try {
-            txData = await alchemy.core.getTransaction(hash);
-          } catch (error) {
-            alert('Erro ao buscar o hash da transação, detalhes no console')
-            console.error(error);
-          }
+  useEffect(() => {
+    async function getTx(hash) {
+      let response
+      try {
+        response = await alchemy.core.getTransaction(hash);
+      } catch (error) {
+        alert('Erro ao buscar o hash da transação, detalhes no console')
+        console.error(error);
+      }
+      const txData = {
+        blockHash: response.blockHash,
+        hash: response.hash,
+        from: response.from,
+        value: parseInt(ethers.getBigInt(response.value._hex)) / 10e18,
+        blockNumber: response.blockNumber,
+        nonce: response.nonce
+      }
+      setTx(txData);
+      console.log(txData)
+    }
+
+    if (hash) {
+      getTx(hash)
+    }
+  }, [hash, alchemy]);
 
 
-        setTxData({
-          blockHash: `${txData.blockHash.substring(0, 6)}...${txData.blockHash.substring(txData.blockHash.length - 4)}`,
-          hash: `${txData.hash.substring(0, 6)}...${txData.hash.substring(txData.hash.length - 4)}`,
-          from: `${txData.from.substring(0, 6)}...${txData.from.substring(txData.from.length - 4)}`,
-          value: parseInt(ethers.getBigInt(txData.value._hex)) / 10e18,
-          blockNumber: txData.blockNumber,
-          nonce: txData.nonce
-        });
-        }
-
-        getTxData("0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b")
-      }, [alchemy]);
-    
-
-  return (
-    <div className="transaction-card">
-      <h2>Tx Hash: {txData.hash}</h2>
-      <p>Block Hash: {txData.blockHash}</p>
-      <p>From: {txData.from}</p>
-      <p>Block Number: {txData.blockNumber}</p>
-      <p>Value: {txData.value}</p>
-      <p>Nonce: {txData.nonce}</p>
-    </div>
-  );
+  if (!tx) {
+    return (
+      <div className="transaction-card">
+        <h2>Carregando dados da Transação...</h2>
+      </div>
+      )
+  } else {
+    return (
+      <div className="transaction-card">
+        <h2>Tx Hash: {`${tx.hash.substring(0, 6)}...${tx.hash.substring(tx.hash.length - 4)}`}</h2>
+        <p>Block Hash: {tx.blockHash}</p>
+        <p>From: {tx.from}</p>
+        <p>Block Number: {tx.blockNumber}</p>
+        <p>Value: {tx.value} ETH</p>
+        <p>Nonce: {tx.nonce}</p>
+      </div>
+    );
+  }
 }
-
 export default TransactionCard;
