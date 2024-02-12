@@ -23,17 +23,16 @@ const alchemy = new Alchemy(settings);
 
 function App() {
   const [blockNumber, setBlockNumber] = useState('');
-  const [inputData, setInputData] = useState('');
+  const [input, setInput] = useState({ data: 0, type: 'unknow' });
 
   useEffect(() => {
     async function getBlockNumber() {
       try {
-        // Certifique-se de que o método getBlockNumber está disponível no objeto alchemy.
         const blockNum = await alchemy.core.getBlockNumber();
         setBlockNumber(blockNum);
       } catch (error) {
-        console.error('Erro ao buscar o número do bloco:', error);
-        // Trate o erro conforme necessário.
+        alert('Erro ao buscar o número do bloco, detalhes no console')
+        console.error(error);
       }
     }
 
@@ -45,23 +44,26 @@ function App() {
       const text = await navigator.clipboard.readText();
       validateInput(text);
     } catch (error) {
-      console.error('Falha ao colar da área de transferência:', error);
-      // Aqui você pode optar por mostrar uma mensagem ao usuário
-      // informando que não foi possível acessar a área de transferência.
+      alert('Falha ao colar da área de transferência, detalhes no console');
+      console.error(error);
     }
   };
   
   const handleSearch = () => {
-    console.log('Buscar o hash:', inputData);
+    console.log(input)
   };
 
-  const validateInput = (input) => {
-    if (input.startsWith('0x')) {
-      console.log("é Um hash:", input);
+  const validateInput = (data) => {
+    if (data.startsWith('0x')) {
+      if (data.length === 42) {
+        setInput({ data, type: "address" })
+      } else {
+        setInput({ data, type: "tx" })
+      }
     } else {
-      console.log("é Um número:", parseInt(input))
+      setInput({ data: parseInt(data), type: "block" })
     }
-    setInputData(input)
+    
   }
 
   return (
@@ -83,9 +85,9 @@ function App() {
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <input
             type="text"
-            value={inputData}
+            value={input.data || ''}
             onChange={(e) => validateInput(e.target.value)}
-            placeholder="Tx hash or block number"
+            placeholder="Put: tx hash, block number or wallet address"
             style={{ flexGrow: 1, marginRight: '10px', padding: '10px' }}
           />
           <button onClick={handlePaste} style={{ background: 'none', border: 'none', padding: '0', margin: '0 10px' }}>
@@ -95,7 +97,9 @@ function App() {
         </div>
       </div>
 
-      <WalletComponent/>
+      {/* {input.type === 'tx' && <TransactionComponent alchemy={alchemy} hash={input.data} />} */}
+      {/* {input.type === 'address' && <WalletComponent alchemy={alchemy} address={input.data} />} */}
+      {/* {input.type === 'block' && <BlockComponent alchemy={alchemy} number={input.data} />} */}
     </div>
   );
 }

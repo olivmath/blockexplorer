@@ -23,9 +23,9 @@ function BlockComponent({ alchemy, number }) {
         });
         }
 
+        getBlockByNumber(number)
       }, [alchemy]);
     
-
     return (
         <div className="block-component">
         <h2>Block Number: {blockData.number}</h2>
