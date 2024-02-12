@@ -17,7 +17,7 @@ function TransactionCard({ alchemy, hash }) {
         blockHash: response.blockHash,
         hash: response.hash,
         from: response.from,
-        value: parseInt(ethers.getBigInt(response.value._hex)) / 10e18,
+        value: parseFloat(ethers.formatEther(response.value._hex)),
         blockNumber: response.blockNumber,
         nonce: response.nonce
       }
@@ -36,7 +36,7 @@ function TransactionCard({ alchemy, hash }) {
       <div className="transaction-card">
         <h2>Carregando dados da Transação...</h2>
       </div>
-      )
+    )
   } else {
     return (
       <div className="transaction-card">
@@ -46,6 +46,14 @@ function TransactionCard({ alchemy, hash }) {
         <p>Block Number: {tx.blockNumber}</p>
         <p>Value: {tx.value} ETH</p>
         <p>Nonce: {tx.nonce}</p>
+        <a
+          href={`https://etherscan.io/tx/${tx.hash}`}
+          style={{ color: '#0e78f0' }}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          More details
+        </a>
       </div>
     );
   }

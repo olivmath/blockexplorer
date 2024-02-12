@@ -43,6 +43,14 @@ function BlockCard({ alchemy, number }) {
         <p>Difficulty: {block.difficulty}</p>
         <p>Transaction Count: {block.txCount}</p>
         <p>date: {block.date}</p>
+        <a
+          href={`https://etherscan.io/block/${block.number}`}
+          style={{ color: '#0e78f0' }}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          More details
+        </a>
       </div>
     );
   }
