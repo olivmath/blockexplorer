@@ -56,15 +56,20 @@ function App() {
   const validateInput = (data) => {
     if (data.startsWith('0x')) {
       if (data.length === 42) {
-        setInput({ data, type: "address" })
+        setInput({ data, type: "address" });
+      } else if (data.length === 66) {
+        setInput({ data, type: "tx" });
       } else {
-        setInput({ data, type: "tx" })
+        setInput({ ...input, data });
       }
+    } else if (Number.isInteger(data)) {
+      setInput({ data: parseInt(data, 10), type: "block" });
+    } else if (data === '') {
+      setInput({ data: '', type: 'unknown' });
     } else {
-      setInput({ data: parseInt(data), type: "block" })
+      setInput({ ...input, data });
     }
-    
-  }
+  };
 
   return (
     <div style={{ maxWidth: '100%', padding: '20px' }}>
