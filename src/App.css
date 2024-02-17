@@ -1,57 +1,119 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: 'Product Sans';
+  src: url('/public/fonts/Product-Sans-Regular.ttf') format('truetype');
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: 'Product Sans', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+/* App.css */
+
+.app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 100vh;
+  background-color: #202124;
   color: white;
+  font-family: 'Product sans', sans-serif;
 }
 
-.App-link {
-  color: #61dafb;
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #121212;
+  border-radius: 24px;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  width: 80%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-.block-card,
-.transaction-card,
-.wallet-card {
-  background-color: #333;
+.search-input {
+  background: transparent;
+  border: none;
   color: white;
-  padding: 20px;
-  border-radius: 5px;
-  margin: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-right: 10px;
+  width: 100%;  
 }
 
-.block-card h2,
-.transaction-card h2,
-.wallet-card h2 {
-  font-size: 1.5em;
+.search-input:focus {
+  outline: none;
 }
 
-/* Adicione estilos adicionais conforme necessário */
+.paste-button {
+  display: flex; /* Usa flexbox para alinhar o ícone */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  background: #303134; /* Um fundo mais claro para o contraste */
+  border: none;
+  cursor: pointer;
+  padding: 10px; /* Adiciona algum espaço ao redor do ícone */
+  border-radius: 4px; /* Arredonda os cantos do botão */
+  margin-right: 8px; /* Adiciona espaço entre o botão de colar e o campo de pesquisa */
+}
+
+.paste-icon {
+  width: 16px;
+  height: 16px;
+  filter: invert(1);
+}
+
+.search-button {
+  background-color: #303134;
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 16px;
+  padding: 10px 16px;
+  margin-left: 10px;
+}
+
+.paste-button:hover,
+.search-button:hover {
+  background-color: #5f6368;
+}
+
+/* Estilos para a mensagem 'Please enter a valid query.' */
+.valid-query-message {
+  color: #ff5252;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+/* Responsiveness */
+@media (max-width: 600px) {
+  .search-box {
+    flex-direction: column;
+    align-items: stretch;
+    width: 95%;
+  }
+
+  .search-input {
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+
+  .paste-button,
+  .search-button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+
+.logo-container {
+  margin-bottom: 20px; /* Espaço entre o logotipo e a barra de pesquisa */
+}
+
+.logo {
+  max-width: 100%; /* Garante que o logotipo não seja maior que o contêiner */
+  width: 512px;
+  height: 256px;
+}
