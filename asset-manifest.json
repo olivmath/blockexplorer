@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/blockexplorer/static/css/main.6aa10450.css",
+    "main.js": "/blockexplorer/static/js/main.f979b4bb.js",
+    "static/js/195.9ae06dfb.chunk.js": "/blockexplorer/static/js/195.9ae06dfb.chunk.js",
+    "static/js/557.d715ca36.chunk.js": "/blockexplorer/static/js/557.d715ca36.chunk.js",
+    "static/js/787.9425e002.chunk.js": "/blockexplorer/static/js/787.9425e002.chunk.js",
+    "static/media/Product-Sans-Regular.ttf": "/blockexplorer/static/media/Product-Sans-Regular.d165384076551a756b3c.ttf",
+    "static/media/Ethereum.svg": "/blockexplorer/static/media/Ethereum.d0e7b1379ba9dc48a6daef7729fe0d54.svg",
+    "index.html": "/blockexplorer/index.html",
+    "main.6aa10450.css.map": "/blockexplorer/static/css/main.6aa10450.css.map",
+    "main.f979b4bb.js.map": "/blockexplorer/static/js/main.f979b4bb.js.map",
+    "195.9ae06dfb.chunk.js.map": "/blockexplorer/static/js/195.9ae06dfb.chunk.js.map",
+    "557.d715ca36.chunk.js.map": "/blockexplorer/static/js/557.d715ca36.chunk.js.map",
+    "787.9425e002.chunk.js.map": "/blockexplorer/static/js/787.9425e002.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6aa10450.css",
+    "static/js/main.f979b4bb.js"
+  ]
+}
